@@ -1,37 +1,95 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ali Khan | Personal Fitness Coach</title>
-<style>
-:root{--bg:#080808;--card:#141414;--red:#e52b2b;--text:#f7f7f7;--muted:#aaa}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,90%);margin:auto}
-nav{position:sticky;top:0;z-index:9;background:#080808e8;border-bottom:1px solid #292929}.nav{height:68px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:24px;font-weight:900}.logo span{color:var(--red)}.navlinks{display:flex;gap:20px;font-size:14px}
-.hero{min-height:88vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:35px}.hero h1{font-size:clamp(48px,7vw,86px);line-height:.98;margin:12px 0 22px;text-transform:uppercase}.eyebrow{color:var(--red);font-weight:bold;letter-spacing:2px;text-transform:uppercase}.muted{color:var(--muted);font-size:18px;line-height:1.7}.hero img,.about img{width:100%;border-radius:14px;object-fit:cover}.hero img{height:70vh;object-position:top}
-.btn{display:inline-block;background:var(--red);padding:14px 20px;border-radius:7px;font-weight:bold;margin:18px 8px 0 0}.outline{background:transparent;border:1px solid var(--red)}
-section{padding:80px 0}.alt{background:#0e0e0e}h2{font-size:clamp(36px,5vw,58px);text-transform:uppercase;margin:8px 0 20px}.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:45px;align-items:center}.about img{max-height:600px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.card{background:var(--card);border:1px solid #292929;border-radius:10px;padding:24px}.card h3{margin-top:0}.card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px}
-.empty{color:#777;border:1px dashed #444;padding:40px;text-align:center;border-radius:10px;grid-column:1/-1}
-.video{aspect-ratio:16/9;width:100%;border:0;border-radius:8px}.wa{position:fixed;right:20px;bottom:20px;background:#25D366;padding:16px;border-radius:999px;font-weight:bold;z-index:10}
-footer{padding:35px 0;border-top:1px solid #292929;color:#888}
-@media(max-width:760px){.navlinks{display:none}.hero,.about{grid-template-columns:1fr}.hero{padding:50px 0}.hero img{height:58vh}.grid{grid-template-columns:1fr}}
-</style></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ali Khan Fitness — personal coaching, fat loss and body transformation.">
+  <title>Ali Khan Fitness | Personal Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<nav><div class="wrap nav"><div class="logo">ALI <span>KHAN</span></div><div class="navlinks"><a href="#about">About</a><a href="#services">Services</a><a href="#transformations">Transformations</a><a href="#vlogs">Vlogs</a></div></div></nav>
-<main id="app"><div class="wrap" style="padding:80px 0">Loading website…</div></main>
-<script>
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function yt(url){try{let u=new URL(url);if(u.hostname.includes('youtu.be'))return u.pathname.slice(1);if(u.searchParams.get('v'))return u.searchParams.get('v');let m=u.pathname.match(/\/shorts\/([^/]+)/);return m?m[1]:''}catch{return''}}
-fetch('/site.json?'+Date.now()).then(r=>r.json()).then(d=>{
- const wa='https://wa.me/'+encodeURIComponent(d.whatsapp)+'?text='+encodeURIComponent("Hi Coach Ali, I'm interested in fitness coaching.");
- const trans=(d.transformations||[]).length?(d.transformations||[]).map(x=>`<article class="card"><img src="${esc(x.image)}"><h3>${esc(x.title)}</h3><p class="muted">${esc(x.caption)}</p></article>`).join(''):'<div class="empty">Transformation photos will appear here.</div>';
- const vlogs=(d.vlogs||[]).length?(d.vlogs||[]).map(x=>{let id=yt(x.youtube_url);return `<article class="card">${id?`<iframe class="video" src="https://www.youtube.com/embed/${esc(id)}" allowfullscreen></iframe>`:''}<h3>${esc(x.title)}</h3><p class="muted">${esc(x.description)}</p></article>`}).join(''):'<div class="empty">Your vlogs will appear here.</div>';
- document.title=esc(d.coach_name)+' | Personal Fitness Coach';
- document.getElementById('app').innerHTML=`
- <header class="wrap hero"><div><div class="eyebrow">Personal Fitness Coach</div><h1>${esc(d.tagline)}</h1><p class="muted">${esc(d.intro)}</p><a class="btn" href="${wa}" target="_blank">Start Your Transformation</a><a class="btn outline" href="${esc(d.instagram)}" target="_blank">Instagram</a></div><img src="${esc(d.hero_image)}" alt="${esc(d.coach_name)}"></header>
- <section id="about" class="alt"><div class="wrap about"><img src="${esc(d.hero_image)}"><div><div class="eyebrow">Meet Your Coach</div><h2>${esc(d.coach_name)}</h2><p class="muted">${esc(d.about)}</p><p>✓ Certified Personal Trainer — Gold's Gym Fitness Institute</p><p>✓ NASM CPT — Pursuing</p></div></div></section>
- <section id="services"><div class="wrap"><div class="eyebrow">Coaching Services</div><h2>Built Around Your Goal</h2><div class="grid">${['Personal Training','Online Fitness Coaching','Fat Loss Coaching','Body Transformation','Strength & Muscle Building','Corrective Exercise & Mobility'].map(x=>`<div class="card"><h3>${x}</h3><p class="muted">Personalized, goal-based coaching with progress tracking and practical guidance.</p></div>`).join('')}</div></div></section>
- <section id="transformations" class="alt"><div class="wrap"><div class="eyebrow">Real Progress</div><h2>Client Transformations</h2><div class="grid">${trans}</div></div></section>
- <section id="vlogs"><div class="wrap"><div class="eyebrow">Watch & Learn</div><h2>Fitness Vlogs</h2><div class="grid">${vlogs}</div></div></section>
- <footer><div class="wrap">© 2026 ${esc(d.coach_name)} — Personal Fitness Coach</div></footer><a class="wa" href="${wa}" target="_blank">WhatsApp</a>`;
-}).catch(()=>document.getElementById('app').innerHTML='<div class="wrap" style="padding:80px 0">Could not load website content.</div>');
-</script></body></html>
+  <header class="site-header">
+    <a class="brand" href="#home"><span>ALI KHAN</span><small>FITNESS COACH</small></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="nav">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#transformations">Transformations</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="glow glow-one"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">ONLINE & PERSONAL COACHING</p>
+        <h1>BUILD YOUR<br><span>STRONGEST</span><br>SELF.</h1>
+        <p class="intro">Personalized training, smart nutrition and sustainable habits — built around your real life.</p>
+        <div class="actions">
+          <a class="btn primary" href="#contact">Start Your Transformation →</a>
+          <a class="btn ghost" href="#transformations">View Results</a>
+        </div>
+      </div>
+
+      <div class="portrait-wrap">
+        <div class="portrait-card">
+          <img src="assets/ali-khan-coach.jpg" alt="Ali Khan, fitness coach">
+        </div>
+        <div class="coach-tag"><b>ALI KHAN</b><span>Certified Fitness Coach</span></div>
+      </div>
+
+      <div class="stats">
+        <div><b>1:1</b><span>Personal Coaching</span></div>
+        <div><b>100%</b><span>Customized Plans</span></div>
+        <div><b>24/7</b><span>Online Support</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <p class="eyebrow">ABOUT ME</p>
+      <h2>COACHING THAT FITS <span>YOUR LIFE.</span></h2>
+      <p>I help people build strength, lose fat and create sustainable fitness habits with practical training and nutrition guidance.</p>
+    </section>
+
+    <section class="section dark" id="services">
+      <p class="eyebrow">SERVICES</p>
+      <h2>CHOOSE YOUR <span>COACHING.</span></h2>
+      <div class="cards">
+        <article><span>01</span><h3>1:1 Coaching</h3><p>Personalized training and accountability.</p></article>
+        <article><span>02</span><h3>Fat Loss</h3><p>Sustainable plans without extreme shortcuts.</p></article>
+        <article><span>03</span><h3>Body Transformation</h3><p>Structured training, nutrition and progress tracking.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="transformations">
+      <p class="eyebrow">REAL PROGRESS</p>
+      <h2>CLIENT <span>TRANSFORMATIONS.</span></h2>
+      <p class="muted">Transformation stories and progress photos can be added here.</p>
+    </section>
+
+    <section class="section dark" id="blog">
+      <p class="eyebrow">LEARN</p>
+      <h2>FITNESS <span>BLOG & VLOGS.</span></h2>
+      <p class="muted">Evidence-informed fitness, training and nutrition content.</p>
+    </section>
+
+    <section class="cta" id="contact">
+      <p class="eyebrow">READY TO START?</p>
+      <h2>YOUR TRANSFORMATION<br><span>STARTS TODAY.</span></h2>
+      <a class="btn primary" href="https://wa.me/" target="_blank" rel="noopener">Chat on WhatsApp →</a>
+      <p class="note">Add your WhatsApp number in the website file before publishing.</p>
+    </section>
+  </main>
+
+  <footer>© 2026 Ali Khan Fitness. All rights reserved.</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
